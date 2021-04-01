@@ -18,7 +18,7 @@ public:
 	bool operator<= (const myString&)const;
 	bool operator>= (const myString&)const;
 	bool operator!= (const myString&)const;
-	myString& operator[](char tav);
-	void print();
-	void  eqtingBigSmall();
+	myString& operator[](int index);
+	void print() const;
+	void eqtingBigSmall();
 };
