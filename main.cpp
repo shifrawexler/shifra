@@ -1,4 +1,11 @@
-#include <iostream>
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
 #include <cstring>
 #include <string>
 #pragma warning (disable: 4996)
@@ -15,8 +22,6 @@ int main()
 	//cout << endl;
 	cout<<"enter an index\n";
 	cin >> n;
-
-	
 	myString a(a1), b(b1);
 	a.eqtingBigSmall();
 	b.eqtingBigSmall();
@@ -36,11 +41,11 @@ int main()
 			*(a1 + i) = 0;
 		*a1 = NULL;
 	}
-	a.insert(n, b.getString());
-	a.print();
-	cin >>tav;
-	a.operator[](tav);
-	a.print();
+	myString NewString = a.insert(n, b.getString());
+	NewString.print();
+	cin >> tav >> index;
+	NewString[index] = tav;
+	NewString.print();
 
 	return 0;
 }
