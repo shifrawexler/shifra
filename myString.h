@@ -4,6 +4,7 @@ using namespace std;
 class myString
 {
 private:
+    int len;
 	char* str;
 	void setString(const char* s);
 public: 
@@ -18,7 +19,7 @@ public:
 	bool operator<= (const myString&)const;
 	bool operator>= (const myString&)const;
 	bool operator!= (const myString&)const;
-	myString& operator[](int index);
+	char& operator[](int index);
 	void print() const;
 	void eqtingBigSmall();
 };
