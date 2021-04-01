@@ -3,11 +3,14 @@
 #pragma warning (disable: 4996)
 #include "myString.h"
 #include  <iostream>
+#include<cstdlib>
 using namespace std;
+
 myString::myString(const char* s)
 {
 	setString(s);
 }
+
 void myString::setString(const char* s)
 {
 	if (s)
@@ -18,16 +21,19 @@ void myString::setString(const char* s)
 	}
 	else str = NULL;
 }
+
 myString::myString(const myString& ms)
 {
 	setString(ms.getString());
 }
+
 myString::~myString()
 {
 	if (str)
 		delete[] str;
 	str = NULL;
 }
+
 myString myString::insert(int index, const char* str)
 {
 
@@ -42,15 +48,16 @@ myString myString::insert(int index, const char* str)
 	char* temp=new char[newLen+1];
 	int i;
 	for (i = 0; i < index; i++)
-		temp[i] = str[i];
+		temp[i] = str[i];   // the string 'b'
 	for (int j = 0; j < strlen(this->str);j++,i++)
-		temp[i] = this->str[j];
+		temp[i] = this->str[j]; // The string 'a'
 	for (int k = index; k < strlen(this->str); k++, i++)
 		temp[i] = str[k];
 	temp[i] = NULL;
-	delete[]this->str;
-	this->str = temp;
-	return *this;
+	//delete[]this->str;
+	//this->str = temp;
+	myString NewStr(temp);
+	return NewStr;
 }
 bool myString::operator>(const myString& ms) const
 {
@@ -66,7 +73,7 @@ bool myString::operator<(const myString& ms) const
 }
 bool myString::operator>=(const myString& ms) const
 {
-	if (strcmp(str, ms.str) > 0||strcmp(str,ms.str)==0)
+	if (strcmp(str, ms.str) >= 0||strcmp(str,ms.str)==0)
 		return true;
 	return false;
 }
@@ -82,36 +89,19 @@ bool myString::operator!=(const myString& ms) const
 		return false;
 	return true;
 }
-myString & myString::operator[]( char tav)
+myString & myString::operator[](int index)
 {
-	int index, index1;
-	cin >> index1;
-	index = index1;
-	if (index >= strlen(this->str))
-	{
-		cout << "Error\n";
-		this->str = NULL;
-		return *this;
-	}
-	else
-	{
-		char* temp = new char[strlen(this->str) + 1];
-		int i;
-		for (i = 0; i < index; i++)
-			temp[i] = this->str[i];
-		temp[i++] = tav;
-		for(;i<strlen(this->str)+1;i++)
-			temp[i]= this->str[i];
-		//not sure if i should do delete here
-		this->str = temp;
-		return *this;
-	}
+	if(index >=0 && index < strlen(str))
+	    return this->str[index];
+	cout << "ERROR" << endl;
+	exit(-1);
 }
 void myString::print()
 {
 	if (str!=NULL)
 		cout << str << endl;
 }
+
 void  myString::eqtingBigSmall()
 {
 	for (int i = 0; this->getString()[i]; i++)
