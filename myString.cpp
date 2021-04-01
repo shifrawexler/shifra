@@ -15,11 +15,15 @@ void myString::setString(const char* s)
 {
 	if (s)
 	{
-		int len = strlen(s) + 1;
-		str = new char[len];
+	    len = strlen(s);
+		str = new char[len+1];
 		strcpy(str, s);
 	}
-	else str = NULL;
+	else 
+	{
+	    str = NULL;
+	    len =0;
+	}
 }
 
 myString::myString(const myString& ms)
@@ -32,6 +36,7 @@ myString::~myString()
 	if (str)
 		delete[] str;
 	str = NULL;
+	len = 0;
 }
 
 myString myString::insert(int index, const char* str)
@@ -40,8 +45,8 @@ myString myString::insert(int index, const char* str)
 	if (index < 0 || strlen(this->str) < index)
 	{
 		cout << "ERROR\n";
-		str = NULL;
-		return str;//i think i have an issue here
+		myString NewString(NULL);
+		return NewString;//i think i have an issue here
 	}
 	
 	int newLen = strlen(this->str) + strlen(str);
@@ -53,7 +58,7 @@ myString myString::insert(int index, const char* str)
 		temp[i] = this->str[j]; // The string 'a'
 	for (int k = index; k < strlen(this->str); k++, i++)
 		temp[i] = str[k];
-	temp[i] = NULL;
+	temp[i] = '\0';
 	//delete[]this->str;
 	//this->str = temp;
 	myString NewStr(temp);
@@ -61,48 +66,68 @@ myString myString::insert(int index, const char* str)
 }
 bool myString::operator>(const myString& ms) const
 {
-	if (strcmp(str, ms.str) > 0)
+    myString New_a = *this;
+    myString New_b = ms;
+    New_a.eqtingBigSmall();
+    New_b.eqtingBigSmall();
+	if (strcmp(New_a.str, New_b.str) > 0)
 		return true;
 	return false;
 }
 bool myString::operator<(const myString& ms) const
 {
-	if (strcmp(str, ms.str) <0)
+    myString New_a = *this;
+    myString New_b = ms;
+    New_a.eqtingBigSmall();
+    New_b.eqtingBigSmall();
+	if (strcmp(New_a.str, New_b.str) <0)
 		return true;
 	return false;
 }
 bool myString::operator>=(const myString& ms) const
 {
-	if (strcmp(str, ms.str) >= 0||strcmp(str,ms.str)==0)
+    myString New_a = *this;
+    myString New_b = ms;
+    New_a.eqtingBigSmall();
+    New_b.eqtingBigSmall();
+	if (strcmp(New_a.str, New_b.str) >= 0||strcmp(New_a.str, New_b.str)==0)
 		return true;
 	return false;
 }
 bool myString::operator<=(const myString& ms) const
 {
-	if (strcmp(str, ms.str) < 0 || strcmp(str, ms.str)==0)
+    myString New_a = *this;
+    myString New_b = ms;
+    New_a.eqtingBigSmall();
+    New_b.eqtingBigSmall();
+	if (strcmp(New_a.str, New_b.str) < 0 || strcmp(New_a.str, New_b.str)==0)
 		return true;
 	return false;
 }
 bool myString::operator!=(const myString& ms) const
 {
-	if (strcmp(str, ms.str) == 0)
+    myString New_a = *this;
+    myString New_b = ms;
+    New_a.eqtingBigSmall();
+    New_b.eqtingBigSmall();
+	if (strcmp(New_a.str, New_b.str) == 0)
 		return false;
 	return true;
 }
-myString & myString::operator[](int index)
+char& myString::operator[](int index)
 {
-	if(index >=0 && index < strlen(str))
+	if(index >=0 && index < len)
 	    return this->str[index];
 	cout << "ERROR" << endl;
 	exit(-1);
 }
-void myString::print()
+void myString::print() const
 {
 	if (str!=NULL)
 		cout << str << endl;
 }
 
-void  myString::eqtingBigSmall()
+void myString::eqtingBigSmall()
 {
 	for (int i = 0; this->getString()[i]; i++)
 	{
